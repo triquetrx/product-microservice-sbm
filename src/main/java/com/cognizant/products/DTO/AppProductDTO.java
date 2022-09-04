@@ -10,4 +10,5 @@ public @Data @AllArgsConstructor @NoArgsConstructor class AppProductDTO {
 	private String make;
 	private String model;
 	private double cost;	
+	private String productImageUrl;
 }

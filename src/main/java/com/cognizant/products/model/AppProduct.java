@@ -23,13 +23,15 @@ public @Data @AllArgsConstructor @NoArgsConstructor class AppProduct {
 	private double cost;
 	private Date createdDate;
 	private String createdBy;
+	private String productImageUrl;
 
-	public AppProduct(String name, String make, String model, double cost, Date date, String createdBy) {
+	public AppProduct(String name, String make, String model, double cost, Date date, String createdBy, String productImageUrl) {
 		this.name = name;
 		this.make = make;
 		this.model = model;
 		this.cost = cost;
 		this.createdDate = date;
 		this.createdBy = createdBy;
+		this.productImageUrl = productImageUrl;
 	}
 }

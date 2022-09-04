@@ -72,7 +72,7 @@ public class AppProductService {
 	public AppProduct addProduct(String token, AppProductDTO dto) throws InvalidUserAccessException {
 		if (authClient.validatingToken(token).isValidStatus()) {
 			AppProduct result = repository.save(new AppProduct(dto.getName(), dto.getMake(), dto.getModel(),
-					dto.getCost(), new Date(), authClient.validatingToken(token).getEmail()));
+					dto.getCost(), new Date(), authClient.validatingToken(token).getEmail(),dto.getProductImageUrl()));
 			return result;
 		}
 		throw new InvalidUserAccessException("UNAUTHORIZED_DATA_ACCESS");

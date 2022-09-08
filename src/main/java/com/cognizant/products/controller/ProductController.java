@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import feign.FeignException.FeignClientException;
 
 @RestController
 @RequestMapping("/product")
+@CrossOrigin(origins = "http://localhost:5000")
 public class ProductController {
 
 	@Autowired
@@ -90,7 +92,7 @@ public class ProductController {
 			@RequestBody AppProductDTO dto) {
 		try {
 			AppProduct result = service.updateProduct(token, id, dto);
-			return new ResponseEntity<>(new Message(200, "PRODUCT_FOUND", result), HttpStatus.OK);
+			return new ResponseEntity<>(new Message(200, "Product updated", result), HttpStatus.OK);
 		} catch (ProductNotFoundException e) {
 			return new ResponseEntity<>(new Message(404, "NO_PRODUCT_FOUND_WITH_ID_" + id, null), HttpStatus.NOT_FOUND);
 		} catch (InvalidUserAccessException e) {
@@ -107,7 +109,7 @@ public class ProductController {
 	public ResponseEntity<?> addProduct(@RequestHeader(name = "Authorization") String token, @RequestBody AppProductDTO dto) {
 		try {
 			AppProduct result = service.addProduct(token, dto);
-			return new ResponseEntity<>(new Message(200, "PRODUCT_ADDED_SUCCESSFULLY", result), HttpStatus.OK);
+			return new ResponseEntity<>(new Message(200, "Product added successfully with id: "+result.getId(), result), HttpStatus.OK);
 		} catch (InvalidUserAccessException e) {
 			return new ResponseEntity<>(new Message(401, "UNAUTHORIZED_DATA_ACCESS", null), HttpStatus.UNAUTHORIZED);
 		} catch (FeignClientException e) {
